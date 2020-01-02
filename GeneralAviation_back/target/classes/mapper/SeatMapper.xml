@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syxy.generalaviation.mapper.SeatMapper">
+
+    <select id="findAllSeat" parameterType="SeatListEntity" resultType="SeatListEntity">
+        SELECT
+        LIST.SEAT_NUMBER,
+        LIST.SEAT_IP,
+        LIST.SEAT_STATE,
+        LIST.SEAT_NAME,
+        SGROUP.SEAT_GROUP_ID,
+        SGROUP.SEAT_GROUP_MESSAGE
+        FROM
+        SEAT_LIST LIST
+        LEFT JOIN
+        SEAT_GROUP SGROUP ON LIST.SEAT_GROUP_ID = SGROUP.SEAT_GROUP_ID
+        <where>
+            1 = 1
+            <if test="seatNumber != null and seatNumber != ''">
+                AND LIST.SEAT_NUMBER = #{seatNumber}
+            </if>
+            <if test="seatIp != null and seatIp != ''">
+                AND LIST.SEAT_IP = #{seatIp}
+            </if>
+            <if test="seatName != null and seatName != ''">
+                AND LIST.SEAT_NAME = #{seatName}
+            </if>
+            <if test="seatGroupId != null and seatGroupId != ''">
+                AND LIST.SEAT_GROUP_ID = #{seatGroupId}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateSeat" parameterType="SeatListEntity">
+        UPDATE
+        SEAT_LIST
+        SET
+        <if test="seatGroupId != null and seatGroupId != ''">
+            SEAT_GROUP_ID = #{seatGroupId},
+        </if>
+        <if test="seatIp != null and seatIp != ''">
+            SEAT_IP = #{seatIp},
+        </if>
+        <if test="seatState != null and seatState != ''">
+            SEAT_STATE = #{seatState},
+        </if>
+        <if test="seatName != null and seatName != ''">
+            SEAT_NAME = #{seatName},
+        </if>
+        SEAT_NUMBER = #{seatNumber}
+        WHERE SEAT_NUMBER = #{seatNumber}
+    </update>
+
+    <insert id="addSeatGroup" parameterType="SeatListEntity">
+        INSERT INTO
+            SEAT_GROUP(
+                SEAT_GROUP_ID,
+                SEAT_GROUP_MESSAGE
+                )
+        VALUES (
+            #{seatGroupId},
+            #{seatGroupMessage}
+        )
+    </insert>
+    <select id="findAllGroup" resultType="SeatListEntity">
+        SELECT
+            SEAT_GROUP_ID,
+            SEAT_GROUP_MESSAGE
+        FROM
+            SEAT_GROUP
+    </select>
+
+    <update id="cleanSeatList" parameterType="SeatListEntity">
+        UPDATE
+        SEAT_LIST
+        SET
+        SEAT_IP = '',
+        SEAT_STATE = '2'
+        WHERE
+        1 = 1
+        <if test="seatNumber != null and seatNumber != ''">
+            AND SEAT_NUMBER = #{seatNumber}
+        </if>
+
+    </update>
+
+    <update id="deleteGroup" parameterType="String">
+        UPDATE
+            SEAT_LIST
+        SET
+            SEAT_NAME = NULL,
+            SEAT_GROUP_ID = NULL
+        WHERE
+            SEAT_GROUP_ID = #{seatGroupId}
+    </update>
+
+    <delete id="cleanSeatGroup" parameterType="String">
+        DELETE
+        FROM
+        SEAT_GROUP
+        WHERE
+        1 = 1
+        <if test="_parameter != null and _parameter != ''">
+            AND SEAT_GROUP_ID = #{_parameter}
+        </if>
+    </delete>
+
+    <insert id="addSeatList" parameterType="SeatListEntity">
+        INSERT INTO
+            SEAT_LIST(
+                SEAT_NUMBER,
+                SEAT_STATE,
+                SEAT_IP
+                )
+        VALUES (
+            #{seatNumber},
+            #{seatState},
+            #{seatIp}
+        )
+    </insert>
+
+    <delete id="deleteSeatListByNumber" parameterType="String">
+        DELETE
+        FROM
+        SEAT_LIST
+        WHERE
+        1 = 1
+        <if test="_parameter != null and _parameter != ''">
+            AND SEAT_NUMBER = #{_parameter}
+        </if>
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syxy.generalaviation.mapper.JobMapper">
+    <sql id="ifAll">
+        <if test="jobType != null and jobType != ''">
+            JOB_TYPE = #{jobType},
+        </if>
+        <if test="jobName != null and jobName != ''">
+            JOB_NAME = #{jobName},
+        </if>
+        <if test="startTime != null and startTime != ''">
+            START_TIME = #{startTime},
+        </if>
+        <if test="endTime != null and endTime != ''">
+            END_TIME = #{endTime},
+        </if>
+        <if test="flightCrew != null and flightCrew != ''">
+            FLIGHT_CREW = #{flightCrew},
+        </if>
+        <if test="aircraftNumber != null and aircraftNumber != ''">
+            AIRCRAFT_NUMBER = #{aircraftNumber},
+        </if>
+        <if test="jobPlaneType != null and jobPlaneType != ''">
+            JOB_PLANE_TYPE = #{jobPlaneType},
+        </if>
+        <if test="airborneEquipment != null and airborneEquipment != ''">
+            AIRBORNE_EQUIPMENT = #{airborneEquipment},
+        </if>
+        <if test="adep != null and adep != ''">
+            ADEP = #{adep},
+        </if>
+        <if test="landingStation != null and landingStation != ''">
+            LANDING_STATION = #{landingStation},
+        </if>
+        <if test="planeColour != null and planeColour != ''">
+            PLANE_COLOUR = #{planeColour},
+        </if>
+        <if test="jobAirspace != null and jobAirspace != ''">
+            JOB_AIRSPACE = #{jobAirspace},
+        </if>
+        <if test="jobState != null and jobState != ''">
+            JOB_STATE = #{jobState},
+        </if>
+        <if test="groupId != null and groupId != ''">
+            GROUP_ID = #{groupId},
+        </if>
+        <if test="seatNumber != null and seatNumber != ''">
+            SEAT_NUMBER = #{seatNumber},
+        </if>
+    </sql>
+    <sql id="allJob">
+        JOB_ID,
+        JOB_TYPE,
+        JOB_NAME,
+        START_TIME,
+        END_TIME,
+        FLIGHT_CREW,
+        AIRCRAFT_NUMBER,
+        JOB_PLANE_TYPE,
+        AIRBORNE_EQUIPMENT,
+        ADEP,
+        LANDING_STATION,
+        PLANE_COLOUR,
+        JOB_AIRSPACE,
+        JOB_STATE,
+        GROUP_ID,
+        SEAT_NUMBER
+    </sql>
+
+    <select id="findAllJob" parameterType="JobList" resultType="JobList">
+        SELECT
+        <include refid="allJob"></include>
+        FROM
+        JOB_LIST
+        <where>
+            1 = 1
+            <if test="startTime != null and startTime != ''">
+                AND START_TIME &gt;= #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                AND END_TIME &lt;= #{endTime}
+            </if>
+            <if test="jobId != null and jobId != ''">
+                AND JOB_ID = #{jobId}
+            </if>
+            <if test="groupId != null and groupId != ''">
+                AND JOB_ID = #{groupId}
+            </if>
+            <if test="seatNumber != null and seatNumber != ''">
+                AND SEAT_NUMBER = #{seatNumber}
+            </if>
+            <if test="seatNumber != null and seatNumber != ''">
+                AND SEAT_NUMBER = #{seatNumber}
+            </if>
+            <if test="adep != null and adep != ''">
+                AND ADEP = #{adep}
+            </if>
+            <if test="landingStation != null and landingStation != ''">
+                AND LANDING_STATION = #{landingStation}
+            </if>
+            <if test="jobType != null and jobType != ''">
+                AND JOB_TYPE = #{jobType}
+            </if>
+            <if test="jobState != null and jobState != ''">
+                AND JOB_STATE = #{jobState}
+            </if>
+        </where>
+    </select>
+
+    <insert id="addJob" parameterType="JobList">
+        INSERT INTO
+        JOB_LIST(
+        <include refid="allJob"></include>
+        )
+        VALUES (
+        #{jobId},
+        #{jobType},
+        #{jobName},
+        #{startTime},
+        #{endTime},
+        #{flightCrew},
+        #{aircraftNumber},
+        #{jobPlaneType},
+        #{airborneEquipment},
+        #{adep},
+        #{landingStation},
+        #{planeColour},
+        #{jobAirspace},
+        #{jobState},
+        #{groupId},
+        #{seatNumber}
+        )
+    </insert>
+    <update id="updateJobById" parameterType="JobList">
+        UPDATE JOB_LIST
+        SET
+        <include refid="ifAll"></include>
+        JOB_ID = #{jobId}
+        WHERE
+        JOB_ID = #{jobId}
+    </update>
+    <delete id="deleteJobById" parameterType="String">
+        DELETE
+        FROM
+        JOB_LIST
+        WHERE
+        1 = 1
+        <if test="_parameter != null and _parameter != ''">
+            AND JOB_ID = #{_parameter}
+        </if>
+
+    </delete>
+
+    <select id="findJobByPilotName" parameterType="String" resultType="String">
+        SELECT
+        SEAT_NUMBER
+        FROM
+        PILOT_LIST
+        <where>
+        1 = 1
+        <if test="_parameter != null and _parameter != ''">
+            AND PILOT_NAME = #{_parameter}
+        </if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.syxy.generalaviation.mapper.PlanMapper">
+    <sql id="ifAll">
+        <if test="jobId != null and jobId != ''">
+            JOB_ID = #{jobId},
+        </if>
+        <if test="startTime != null and startTime != ''">
+            START_TIME = #{startTime},
+        </if>
+        <if test="flyTime != null and flyTime != ''">
+            FLY_TIME = #{flyTime},
+        </if>
+        <if test="flyTime != null and flyTime != ''">
+            GASOLINE_TYPE = #{gasolineType},
+        </if>
+        <if test="flyTime != null and flyTime != ''">
+            ALTERNATE_AIRPORT = #{alternateAirport},
+        </if>
+        <if test="planState != null and planState != ''">
+            PLAN_STATE = #{planState},
+        </if>
+        <if test="planJobAirspace != null and planJobAirspace != ''">
+            PLAN_JOB_AIRSPACE = #{planJobAirspace},
+        </if>
+        <if test="flyHeight != null and flyHeight != ''">
+            FLY_HEIGHT = #{flyHeight},
+        </if>
+        <if test="flySpeed != null and flySpeed != ''">
+            FLY_SPEED = #{flySpeed},
+        </if>
+        <if test="creatTime != null and creatTime != ''">
+            CREAT_TIME = #{creatTime},
+        </if>
+        <if test="flyType != null and flyType != ''">
+            FLY_TYPE = #{flyType},
+        </if>
+        <if test="explainType != null and explainType != ''">
+            EXPLAIN_TYPE = #{explainType},
+        </if>
+    </sql>
+
+    <sql id="allPlan">
+        PLAN_ID,
+        JOB_ID,
+        START_TIME,
+        FLY_TIME,
+        GASOLINE_TYPE,
+        ALTERNATE_AIRPORT,
+        PLAN_STATE,
+        PLAN_JOB_AIRSPACE,
+        FLY_HEIGHT,
+        FLY_SPEED,
+        CREAT_TIME,
+        FLY_TYPE,
+        EXPLAIN_TYPE
+    </sql>
+
+    <select id="findAllPlan" parameterType="PlanList" resultType="PlanList">
+        SELECT
+        PLAN.PLAN_ID,
+        PLAN.JOB_ID,
+        PLAN.START_TIME,
+        PLAN.FLY_TIME,
+        PLAN.GASOLINE_TYPE,
+        PLAN.ALTERNATE_AIRPORT,
+        PLAN.PLAN_STATE,
+        PLAN.PLAN_JOB_AIRSPACE,
+        PLAN.FLY_HEIGHT,
+        PLAN.FLY_SPEED,
+        PLAN.CREAT_TIME,
+        PLAN.FLY_TYPE,
+        PLAN.EXPLAIN_TYPE,
+        JOB.JOB_TYPE,
+        JOB.FLIGHT_CREW,
+        JOB.AIRCRAFT_NUMBER,
+        JOB.JOB_PLANE_TYPE,
+        JOB.AIRBORNE_EQUIPMENT,
+        JOB.ADEP,
+        JOB.LANDING_STATION,
+        JOB.PLANE_COLOUR
+        FROM
+        PLAN_LIST PLAN
+        LEFT JOIN
+        JOB_LIST JOB on PLAN.JOB_ID = JOB.JOB_ID
+        <where>
+            1 = 1
+            <if test="planId != null and planId != ''">
+               AND PLAN.PLAN_ID = #{planId}
+            </if>
+            <if test="jobId != null and jobId != ''">
+               AND PLAN.JOB_ID = #{jobId}
+            </if>
+            <if test="alternateAirport != null and alternateAirport != ''">
+                AND PLAN.ALTERNATE_AIRPORT &lt;= #{alternateAirport}
+            </if>
+            <if test="planState != null and planState != ''">
+                AND PLAN.PLAN_STATE &lt;= #{planState}
+            </if>
+        </where>
+        ORDER BY CREAT_TIME DESC
+    </select>
+
+    <insert id="addPlan" parameterType="PlanList">
+        INSERT INTO
+        PLAN_LIST(
+            <include refid="allPlan"></include>
+        )
+        VALUES (
+        #{planId}           ,
+        #{jobId}            ,
+        #{startTime}            ,
+        #{flyTime}          ,
+        #{gasolineType}         ,
+        #{alternateAirport}     ,
+        #{planState}            ,
+        #{planJobAirspace}          ,
+        #{flyHeight}            ,
+        #{flySpeed}             ,
+        #{creatTime}            ,
+        #{flyType}            ,
+        #{explainType}
+        )
+    </insert>
+
+    <delete id="deletePlanById" parameterType="String">
+        DELETE
+        FROM
+        PLAN_LIST
+        WHERE
+        1 = 1
+        <if test="_parameter != null and _parameter != ''">
+            AND PLAN_ID = #{_parameter}
+        </if>
+    </delete>
+
+    <update id="updatePlanById" parameterType="PlanList">
+        UPDATE
+        PLAN_LIST
+        SET
+        <include refid="ifAll"></include>
+        PLAN_ID = #{planId}
+        WHERE
+        PLAN_ID = #{planId}
+    </update>
+
+
+</mapper>

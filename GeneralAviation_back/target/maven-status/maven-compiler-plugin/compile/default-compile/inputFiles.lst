@@ -1,0 +1,15 @@
+D:\java_ec\GeneralAviation_Back\src\main\java\com\syxy\generalaviation\mapper\SeatMapper.java
+D:\java_ec\GeneralAviation_Back\src\main\java\com\syxy\generalaviation\GeneralAviation_backApplication.java
+D:\java_ec\GeneralAviation_Back\src\main\java\com\syxy\generalaviation\entity\AirspaceData.java
+D:\java_ec\GeneralAviation_Back\src\main\java\com\syxy\generalaviation\util\CorsConfiguration.java
+D:\java_ec\GeneralAviation_Back\src\main\java\com\syxy\generalaviation\util\PropertiesUtil.java
+D:\java_ec\GeneralAviation_Back\src\main\java\com\syxy\generalaviation\util\SwaggerConfig.java
+D:\java_ec\GeneralAviation_Back\src\main\java\com\syxy\generalaviation\service\SeatService.java
+D:\java_ec\GeneralAviation_Back\src\main\java\com\syxy\generalaviation\controller\SeatController.java
+D:\java_ec\GeneralAviation_Back\src\main\java\com\syxy\generalaviation\util\websocket\CustomWebSocket.java
+D:\java_ec\GeneralAviation_Back\src\main\java\com\syxy\generalaviation\service\impl\SeatServiceImpl.java
+D:\java_ec\GeneralAviation_Back\src\main\java\com\syxy\generalaviation\util\websocket\WebSocketConfig.java
+D:\java_ec\GeneralAviation_Back\src\main\java\com\syxy\generalaviation\entity\TaskMessage.java
+D:\java_ec\GeneralAviation_Back\src\main\java\com\syxy\generalaviation\util\websocket\WebsocketUtil.java
+D:\java_ec\GeneralAviation_Back\src\main\java\com\syxy\generalaviation\constant\SeatConstant.java
+D:\java_ec\GeneralAviation_Back\src\main\java\com\syxy\generalaviation\entity\Seat_List_Entity.java

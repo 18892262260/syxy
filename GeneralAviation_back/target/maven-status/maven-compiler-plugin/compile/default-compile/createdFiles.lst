@@ -1,0 +1,16 @@
+com\syxy\generalaviation\GeneralAviation_backApplication.class
+com\syxy\generalaviation\util\websocket\WebSocketConfig.class
+com\syxy\generalaviation\util\PropertiesUtil.class
+com\syxy\generalaviation\util\SwaggerConfig.class
+com\syxy\generalaviation\controller\SeatController.class
+com\syxy\generalaviation\entity\TaskMessage.class
+com\syxy\generalaviation\entity\AirspaceData.class
+com\syxy\generalaviation\util\CorsConfiguration.class
+com\syxy\generalaviation\constant\SeatConstant.class
+com\syxy\generalaviation\util\websocket\CustomWebSocket$1.class
+com\syxy\generalaviation\util\websocket\WebsocketUtil.class
+com\syxy\generalaviation\entity\Seat_List_Entity.class
+com\syxy\generalaviation\util\websocket\CustomWebSocket.class
+com\syxy\generalaviation\mapper\SeatMapper.class
+com\syxy\generalaviation\service\SeatService.class
+com\syxy\generalaviation\service\impl\SeatServiceImpl.class
